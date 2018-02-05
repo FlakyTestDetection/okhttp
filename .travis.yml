@@ -7,6 +7,13 @@ before_install:
 - unzip -qq apache-maven-3.3.9.zip
 - export M2_HOME=$PWD/apache-maven-3.3.9
 - export PATH=$M2_HOME/bin:$PATH
+
+script: mvn test javadoc:jar source:jar -B
+
+after_success:
+  - .buildscript/deploy_snapshot.sh
+
+
 branches:
   except:
   - gh-pages
